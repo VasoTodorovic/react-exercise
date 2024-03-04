@@ -34,10 +34,10 @@ const rows = [
 
 export default function TableClient() {
 const [quartil,setQuartil]=React.useState(1);
-const handleChange=(event,newValue)=>{
-    setQuartil(newValue);
+const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  setQuartil(newValue);
 }
-let quartilComonent;
+let quartilComonent:React.ReactNode;
 switch(quartil){
   case 1:
     quartilComonent=<Quartil1></Quartil1>
