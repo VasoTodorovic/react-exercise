@@ -1,5 +1,5 @@
 
-import TableClient from "./components/Table";
+import TableClient from "./components/table/Table";
 function App() {
 
   return (

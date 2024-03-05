@@ -7,10 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import Quartil1 from "./quartil/Quartil1";
-import Quartil2 from "./quartil/Quartil2";
-import Quartil3 from "./quartil/Quartil3";
-import Quartil4 from "./quartil/Quartil4";
+import Quartil1 from "../quartil/Quartil1";
+import Quartil2 from "../quartil/Quartil2";
+import Quartil3 from "../quartil/Quartil3";
+import Quartil4 from "../quartil/Quartil4";
 ("");
 function createData(
   id: number,
@@ -34,7 +34,7 @@ const rows = [
 
 export default function TableClient() {
 const [quartil,setQuartil]=React.useState(1);
-const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+const handleChange = (_: React.SyntheticEvent, newValue: number) => {
   setQuartil(newValue);
 }
 let quartilComonent:React.ReactNode;
