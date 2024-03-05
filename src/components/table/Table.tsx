@@ -11,6 +11,7 @@ import Quartil1 from "../quartil/Quartil1";
 import Quartil2 from "../quartil/Quartil2";
 import Quartil3 from "../quartil/Quartil3";
 import Quartil4 from "../quartil/Quartil4";
+import { createTheme, ThemeProvider } from "@mui/material";
 ("");
 function createData(
   id: number,
@@ -23,6 +24,47 @@ function createData(
   return { id, legal, firmId, name, numberOfEmp, quartile };
 }
 
+const theme = createTheme({
+  components: {
+      MuiTableCell: {
+        styleOverrides: {
+          root: {
+            color: 'blue',
+          },
+        },
+      },
+    MuiToggleButtonGroup: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#add8e6",
+          borderRadius: "0px",
+          padding: "0px",
+        },
+        grouped: {
+          borderRadius: "0px",
+          margin: "0 0px",
+        },
+        groupedHorizontal: {
+          margin: "0 5px",
+        },
+        groupedVertical: {
+          margin: "0px 0",
+        },
+      },
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          color: "#007bff",
+          "&.Mui-selected": {
+            backgroundColor: "#007bff",
+            color: "#fff",
+          },
+        },
+      },
+    },
+  },
+});
 const rows = [
   createData(1, "DOO", 132, "Moja firma", 4.0, 2),
   createData(2, "Pausalac", 1244, "Firma neka", 37, 4.3),
@@ -33,71 +75,86 @@ const rows = [
 ];
 
 export default function TableClient() {
-const [quartil,setQuartil]=React.useState(1);
-const handleChange = (_: React.SyntheticEvent, newValue: number) => {
-  setQuartil(newValue);
-}
-let quartilComonent:React.ReactNode;
-switch(quartil){
-  case 1:
-    quartilComonent=<Quartil1></Quartil1>
-    break;
-  case 2:
-    quartilComonent=<Quartil2></Quartil2>
-    break;
-  case 3:
-    quartilComonent=<Quartil3></Quartil3>
-    break;
-  case 4:
-    quartilComonent=<Quartil4></Quartil4>
-    break;
-}
+  const [quartil, setQuartil] = React.useState(1);
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
+    setQuartil(newValue);
+  };
+  let quartilComonent: React.ReactNode;
+  switch (quartil) {
+    case 1:
+      quartilComonent = <Quartil1></Quartil1>;
+      break;
+    case 2:
+      quartilComonent = <Quartil2></Quartil2>;
+      break;
+    case 3:
+      quartilComonent = <Quartil3></Quartil3>;
+      break;
+    case 4:
+      quartilComonent = <Quartil4></Quartil4>;
+      break;
+  }
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead sx={{background:"green"}}>
-          <TableRow>
-            <TableCell>Redni Broj</TableCell>
-            <TableCell align="right">Pausalac/DOO</TableCell>
-            <TableCell >Maticni broj</TableCell>
-            <TableCell align="right">Poslovno ime</TableCell>
-            <TableCell align="right">Zaposleni</TableCell>
-            <TableCell align="center" sx={{width:"100%"}}>
-                <ToggleButtonGroup value={quartil} sx={{width:"80%",height:"50px"}} exclusive onChange={handleChange}>
-                    <ToggleButton value={1} sx={{ width:"25%" }}>I</ToggleButton>
-                    <ToggleButton value={2} sx={{width:"25%"}}>II</ToggleButton>
-                    <ToggleButton value={3} sx={{width:"25%"}}>III</ToggleButton>
-                    <ToggleButton value={4} sx={{width:"25%"}}>IV</ToggleButton>
+    <ThemeProvider theme={theme}>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead sx={{ background: "#add8e6" }}>
+            <TableRow sx={{ "& > *": { paddingright: "1px" } }}>
+              <TableCell>no</TableCell>
+              <TableCell align="left">Pausalac/DOO</TableCell>
+              <TableCell>Maticni broj</TableCell>
+              <TableCell align="left">Poslovno ime</TableCell>
+              <TableCell align="left">Zaposleni</TableCell>
+              <TableCell align="center" sx={{ width: "100%" }}>
+                <ToggleButtonGroup
+                  value={quartil}
+                  sx={{ width: "80%", height: "50px" }}
+                  exclusive
+                  onChange={handleChange}
+                >
+                  <ToggleButton value={1} sx={{ width: "25%" }}>
+                    I
+                  </ToggleButton>
+                  <ToggleButton value={2} sx={{ width: "25%" }}>
+                    II
+                  </ToggleButton>
+                  <ToggleButton value={3} sx={{ width: "25%" }}>
+                    III
+                  </ToggleButton>
+                  <ToggleButton value={4} sx={{ width: "25%" }}>
+                    IV
+                  </ToggleButton>
                 </ToggleButtonGroup>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow sx={{ '& > *': { padding: '3px' } }}>
-              <TableCell sx={{ width: "0%" }} align="right">
-                {row.id}
-              </TableCell>
-              <TableCell sx={{ width: "0%" }} align="right">
-                {row.legal}
-              </TableCell>
-              <TableCell sx={{ width: "0%" }} align="right">
-                {row.firmId}
-              </TableCell>
-              <TableCell sx={{ width: "10%" }} align="right">
-                {row.name}
-              </TableCell>
-              <TableCell sx={{ width: "1%" }} align="right">
-                {row.numberOfEmp}
-              </TableCell>
-              <TableCell sx={{ width:"50%"}} align="right">
-                {quartilComonent}
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow sx={{ "& > *": { padding: "0px" } }}>
+                <TableCell sx={{ width: "0%" }} align="center">
+                  {row.id}
+                </TableCell>
+                <TableCell sx={{ width: "0%" }} align="left">
+                  {row.legal}
+                </TableCell>
+                <TableCell sx={{ width: "0%" }} align="left">
+                  {row.firmId}
+                </TableCell>
+                <TableCell sx={{ width: "10%" }} align="left">
+                  {row.name}
+                </TableCell>
+                <TableCell sx={{ width: "1%" }} align="center">
+                  {row.numberOfEmp}
+                </TableCell>
+                <TableCell sx={{ width: "50%" }} align="center">
+                  {quartilComonent}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </ThemeProvider>
   );
 }
